@@ -73,16 +73,13 @@ public class TestGreenKart extends BaseTest {
         assertTrue(actualURLCountry.endsWith("country"));
 
         WebElement message;
-        String text = "Thank you, your order has been placed successfully\n" +
-                "You'll be redirected to Home page shortly!!";
-
         int randomCountry = countryPage.generateRandomCountry();
         countryPage.selectCountry(randomCountry);
         countryPage.selectAgreeCheckBox();
         countryPage.clickOnProceed();
         message = countryPage.successMessage();
-        assertEquals(text, message.getText());
-    }
+        assertEquals(MESSAGE_TEXT, message.getText());
+       }
 }
 
 

@@ -20,17 +20,42 @@ public class HomePage {
         this.driver = driver;
     }
 
-    private final By cartIcon = By.xpath("//a[@class = 'cart-icon']");
-    private final By cartTopRightItems = By.xpath("//div[@class='cart-info']//tbody//tr");
-    private final By modalContainer = By.xpath("//div[@class = 'cart-preview active']");
-    private final By modalContentText= By.xpath(".//p[@class = 'product-name']");
-    private final By modalContentQty = By.xpath("//p[@class = 'quantity']");
-    private final By modalContentPrice = By.xpath("//p[@class = 'product-price']");
-    private final By modalContentAmount = By.xpath("//p[@class = 'amount']");
-    private final By proceedToCheckoutBtn = By.xpath("//button[text() = 'PROCEED TO CHECKOUT']");
+    private final By
+            productItemsList = By.xpath("//h4[@class = 'product-name']"),
+            partChild_button = By.xpath("//child::button"),
+            partChild_input = By.xpath("//child::input"),
+            partChild_p = By.xpath("//child::p"),
+            partChild_h4 = By.xpath("//child::h4"),
+
+            cartIcon = By.xpath("//a[@class = 'cart-icon']"),
+            cartTopRightItems = By.xpath("//div[@class='cart-info']//tbody//tr"),
+            modalContainer = By.xpath("//div[@class = 'cart-preview active']"),
+            modalContentText= By.xpath(".//p[@class = 'product-name']"),
+            modalContentQty = By.xpath("//p[@class = 'quantity']"),
+            modalContentPrice = By.xpath("//p[@class = 'product-price']"),
+            modalContentAmount = By.xpath("//p[@class = 'amount']"),
+            proceedToCheckoutBtn = By.xpath("//button[text() = 'PROCEED TO CHECKOUT']");
+
+
+
+//    private final By productItemsList = By.xpath("//h4[@class = 'product-name']");
+//    private final By partChild_button = By.xpath("//child::button");
+//    private final By partChild_input = By.xpath("//child::input");
+//    private final By partChild_p = By.xpath("//child::p");
+//    private final By partChild_h4 = By.xpath("//child::h4");
+
+
+//    private final By cartIcon = By.xpath("//a[@class = 'cart-icon']");
+//    private final By cartTopRightItems = By.xpath("//div[@class='cart-info']//tbody//tr");
+//    private final By modalContainer = By.xpath("//div[@class = 'cart-preview active']");
+//    private final By modalContentText= By.xpath(".//p[@class = 'product-name']");
+//    private final By modalContentQty = By.xpath("//p[@class = 'quantity']");
+//    private final By modalContentPrice = By.xpath("//p[@class = 'product-price']");
+//    private final By modalContentAmount = By.xpath("//p[@class = 'amount']");
+//    private final By proceedToCheckoutBtn = By.xpath("//button[text() = 'PROCEED TO CHECKOUT']");
 
     public int generateRandomNumber() {
-        listOfItems = driver.findElements(By.xpath("//h4[@class = 'product-name']"));
+        listOfItems = driver.findElements(productItemsList);
         return (int) Math.round(Math.random() * listOfItems.size());
     }
     //Add Item Into Cart
@@ -39,12 +64,12 @@ public class HomePage {
         String qty = "";
         String text = "";
          for (int i = 0; i < listOfItems.size(); i++) {
-            listOfItems = driver.findElements(By.xpath("//h4[@class = 'product-name']"));
+            listOfItems = driver.findElements(productItemsList);
             if (index == i) {
-                WebElement addBtn = listOfItems.get(i).findElement(By.xpath("//div[@class = 'product'][" + i + "]//child::button"));
-                WebElement getQty = listOfItems.get(i).findElement(By.xpath("//div[@class= 'product'][" + i + "]//child::input"));
-                WebElement getPrice = listOfItems.get(i).findElement(By.xpath("//div[@class= 'product'][" + i + "]//child::p"));
-                WebElement getText = listOfItems.get(i).findElement(By.xpath("//div[@class= 'product'][" + i + "]//child::h4"));
+                WebElement addBtn = listOfItems.get(i).findElement(By.xpath("" +  productItemsList +"[" + i + "]"+"//child::button"));
+                WebElement getQty = listOfItems.get(i).findElement(By.xpath("" + productItemsList + "[" + i + "] "+ partChild_input +""));
+                WebElement getPrice = listOfItems.get(i).findElement(By.xpath("" + productItemsList + "[" + i + "]"+partChild_p + ""));
+                WebElement getText = listOfItems.get(i).findElement(By.xpath("" + productItemsList + "[" + i + "]"+partChild_h4 +""));
                 price = getPrice.getText();
                 qty = getQty.getAttribute("value");
                 text = getText.getText();
